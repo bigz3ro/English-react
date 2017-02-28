@@ -1,0 +1,12 @@
+node_modules
+build/bundle.js
+build/coverage/*
+build/*.eot
+build/*.woff
+build/*.woff2
+build/*.svg
+build/*.ttf
+build/*.map
+build/*.js.map
+build/*.gz
+build/*.js

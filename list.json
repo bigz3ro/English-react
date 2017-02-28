@@ -1,0 +1,190 @@
+{
+  "success": true,
+  "status_code": 200,
+  "message": null,
+  "data": {
+    "items": [
+      {
+        "id": 12,
+        "first_name": "van",
+        "last_name": "nguyen",
+        "email": "skyblack140195@gmail.com",
+        "last_login": null,
+        "login_failed": 0,
+        "role_id": 4,
+        "role": {
+          "id": 4,
+          "uid": "quan-tri-vien",
+          "role_type_uid": "admin"
+        }
+      },
+      {
+        "id": 11,
+        "first_name": "tran",
+        "last_name": "son123",
+        "email": "tbson87@yahoo.com",
+        "last_login": null,
+        "login_failed": 0,
+        "role_id": 4,
+        "role": {
+          "id": 4,
+          "uid": "quan-tri-vien",
+          "role_type_uid": "admin"
+        }
+      },
+      {
+        "id": 10,
+        "first_name": "Son",
+        "last_name": "Xivi",
+        "email": "sonxivi@gmail.com",
+        "last_login": null,
+        "login_failed": 0,
+        "role_id": 4,
+        "role": {
+          "id": 4,
+          "uid": "quan-tri-vien",
+          "role_type_uid": "admin"
+        }
+      },
+      {
+        "id": 9,
+        "first_name": "Nhan Vien",
+        "last_name": "Dat Hang 1",
+        "email": "nhanviendathang1@gmail.com",
+        "last_login": null,
+        "login_failed": 0,
+        "role_id": 6,
+        "role": {
+          "id": 6,
+          "uid": "nhan-vien-dat-hang",
+          "role_type_uid": "admin"
+        }
+      },
+      {
+        "id": 8,
+        "first_name": "Ke",
+        "last_name": "Toan",
+        "email": "ketoan@gmail.com",
+        "last_login": null,
+        "login_failed": 0,
+        "role_id": 8,
+        "role": {
+          "id": 8,
+          "uid": "ke-toan",
+          "role_type_uid": "admin"
+        }
+      },
+      {
+        "id": 7,
+        "first_name": "Quan Ly",
+        "last_name": "Dat Hang",
+        "email": "quanlydathang@gmail.com",
+        "last_login": null,
+        "login_failed": 0,
+        "role_id": 7,
+        "role": {
+          "id": 7,
+          "uid": "quan-ly-dat-hang",
+          "role_type_uid": "admin"
+        }
+      },
+      {
+        "id": 6,
+        "first_name": "Nhan Vien",
+        "last_name": "Dat Hang",
+        "email": "nhanviendathang@gmail.com",
+        "last_login": null,
+        "login_failed": 0,
+        "role_id": 6,
+        "role": {
+          "id": 6,
+          "uid": "nhan-vien-dat-hang",
+          "role_type_uid": "admin"
+        }
+      },
+      {
+        "id": 5,
+        "first_name": "Nhan Vien",
+        "last_name": "Kho",
+        "email": "nhanvienkho@gmail.com",
+        "last_login": null,
+        "login_failed": 0,
+        "role_id": 5,
+        "role": {
+          "id": 5,
+          "uid": "nhan-vien-kho",
+          "role_type_uid": "admin"
+        }
+      },
+      {
+        "id": 3,
+        "first_name": "Lại",
+        "last_name": "Hùng",
+        "email": "hunglai@riasoft.co",
+        "last_login": null,
+        "login_failed": 0,
+        "role_id": 4,
+        "role": {
+          "id": 4,
+          "uid": "quan-tri-vien",
+          "role_type_uid": "admin"
+        }
+      },
+      {
+        "id": 2,
+        "first_name": "Ngô",
+        "last_name": "Thế Anh",
+        "email": "ntanh@riasoft.co",
+        "last_login": null,
+        "login_failed": 0,
+        "role_id": 4,
+        "role": {
+          "id": 4,
+          "uid": "quan-tri-vien",
+          "role_type_uid": "admin"
+        }
+      }
+    ],
+    "_meta": {
+      "current_page": 1,
+      "last_page": 2,
+      "from": 1,
+      "to": 10,
+      "per_page": 10,
+      "page_count": 11
+    },
+    "_links": {
+      "next_link": "http://myblog.dev/api/v1/admin/list?page=2",
+      "last_link": null
+    }
+  },
+  "extra": {
+    "list_role": [
+      {
+        "id": 4,
+        "title": "Quản trị viên",
+        "uid": "quan-tri-vien"
+      },
+      {
+        "id": 5,
+        "title": "Nhân viên kho",
+        "uid": "nhan-vien-kho"
+      },
+      {
+        "id": 6,
+        "title": "Nhân viên đặt hàng",
+        "uid": "nhan-vien-dat-hang"
+      },
+      {
+        "id": 7,
+        "title": "Quản lý đặt hàng",
+        "uid": "quan-ly-dat-hang"
+      },
+      {
+        "id": 8,
+        "title": "Kế toán",
+        "uid": "ke-toan"
+      }
+    ]
+  }
+}

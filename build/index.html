@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="vi">
+	<head>
+		<meta charset="utf-8"/>
+		<title>CMS</title>
+	</head>
+	<body>
+		<div id="app"></div>
+		<!--
+		<script id="react-vendor-script"></script>
+		<script id="summernote-vendor-script"></script>
+		-->
+		<script id="main-script"></script>
+		<script type="text/javascript">
+			// document.getElementById("react-vendor-script").src = '/'+window.location.href.split('://')[1].split('/')[1]+'/react-vendor.js';
+			// document.getElementById("summernote-vendor-script").src = '/'+window.location.href.split('://')[1].split('/')[1]+'/summernote-vendor.js';
+			document.getElementById("main-script").src = '/'+window.location.href.split('://')[1].split('/')[1]+'/app.js';
+		</script>
+	</body>
+</html>
