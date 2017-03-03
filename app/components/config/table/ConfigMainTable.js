@@ -8,6 +8,7 @@ import {
 import forEach from 'lodash/forEach';
 import Table from 'rc-table';
 import 'rc-table/assets/index.css';
+import Paginator from 'utils/components/Paginator';
 
 //Display content list config
 class ConfigMainTable extends React.Component {
@@ -69,6 +70,7 @@ class ConfigMainTable extends React.Component {
 			/>
 		);
 	}
+
 	
 	render(){
 		//Lay tieu de du lieu dinh nghia trong file _data;
@@ -120,6 +122,10 @@ class ConfigMainTable extends React.Component {
 					rowKey={ record => record.id }
 					data={this.props.configReducer.list}
 					scroll={{ x: false, y: false }} 
+				/>
+				<Paginator 
+					pageCount={this.props.configReducer.pages}
+					onPageChange={this.props.onPageChange}
 				/>
 			</div>
 		);

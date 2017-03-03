@@ -5,7 +5,7 @@ import WaitingMessage from 'utils/components/WaitingMessage';
 import CustomModal from 'utils/components/CustomModal';
 import AdminMainTable from './table/AdminMainTable';
 import AdminMainForm from './forms/AdminMainForm';
-
+import NavWrapper from 'utils/components/NavWrapper';
 
 //AdminLayout chua template Main Content of Config va Modal de add-edit-delete
 class AdminLayout extends React.Component {
@@ -63,7 +63,9 @@ class AdminLayout extends React.Component {
 	render(){
 		return (
 			<div>
-				{this._renderContent()}
+				<NavWrapper>
+					{this._renderContent()}
+				</NavWrapper>
 			</div>
 		);
 	}

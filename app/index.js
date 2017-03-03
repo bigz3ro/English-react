@@ -11,6 +11,11 @@ import IndexRoute from 'react-router/lib/IndexRoute';
 import browserHistory from 'react-router/lib/browserHistory';
 
 //import boostrap
+import 'libs/bootstrap/css/bootstrap.min.css';
+// import 'libs/todc-bootstrap/css/todc-bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-select/dist/react-select.min.css';
+import 'react-dd-menu/dist/react-dd-menu.min.css';
 import 'rc-table/assets/index.css';
 import 'libs/bootstrap/css/bootstrap.min.css';
 // import 'libs/bootstrap/js/bootstrap.min.js';
@@ -63,7 +68,7 @@ const rootElementAdmin = (
 			<Route path={URL_PREFIX} component={App} onEnter={onEnter} onChange={onChange}>
 				<IndexRoute component={Profile} params={{login: true}}></IndexRoute>			
 				<Route path="config" component={Config} params={{login: true}}/>
-				<Route path="admin" component={Admin} params={{login: true}}/>
+				<Route path="admin" component={Admin} params={{login: false}}/>
 				<Route path="profile" component={Profile} params={{login: true}}/>
 			</Route>
 			<Route path="*" component={NotFound} params={{login: false}}/>

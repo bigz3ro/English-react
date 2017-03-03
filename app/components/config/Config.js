@@ -180,8 +180,9 @@ class Config extends React.Component{
 		}
 	}
 
-	handlePageChange(){
-
+	handlePageChange($data){
+		let page = $data.selected + 1;
+		this.list({}, page);
 	}
 	//---End xu li cac  event xay ra tren giao dien ------>
 
@@ -206,6 +207,7 @@ class Config extends React.Component{
 
 	//Set data-list to state redux 
 	setInitData(initData){
+		//Goi den List Data voi tong so page cua tat ca cac list do
 		this.props.configAction('newList', {list: [...initData.data.items], pages: initData.data._meta.last_page});
 		this.setState({dataLoaded: true});
 	}

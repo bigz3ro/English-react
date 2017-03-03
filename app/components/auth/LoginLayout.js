@@ -32,7 +32,8 @@ class LoginLayout extends React.Component {
 						</FormLogin>
 					</div>
 				</div>
-			</div>
+			</div> 
+
 		);
 	}
 }

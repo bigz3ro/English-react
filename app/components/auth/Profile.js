@@ -4,6 +4,7 @@ import Tools from 'utils/helpers/Tools';
 import { apiUrls } from './_data';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import NavWrapper from 'utils/components/NavWrapper';
 
 class Profile extends React.Component {
 	constructor(props){
@@ -26,7 +27,8 @@ class Profile extends React.Component {
 
 	render(){
 		return(
-			<div>
+			<NavWrapper>
+				<div>
 				<table className="table table-striped">
 					<tbody>
 						<tr>
@@ -35,11 +37,12 @@ class Profile extends React.Component {
 						</tr>
 						<tr>
 							<td>Name</td>
-							{`${this.props.authReducer.profile.first_name || ''} ${this.props.authReducer.profile.last_name || ''}`}
+							<td>{`${this.props.authReducer.profile.first_name || ''} ${this.props.authReducer.profile.last_name || ''}`}</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
+			</NavWrapper>			
 		);
 	}
 }

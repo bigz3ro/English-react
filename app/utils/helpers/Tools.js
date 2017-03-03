@@ -305,20 +305,33 @@ export default class Tools {
 					}
 				}
 				fetch(url, requestConfig).then((response) => {
-					response.text().then((responseText) => {
-						const result = JSON.parse(responseText);
-						if(result.status_code === 401){
-							this.removeStorage('authData');
-							this.goToUrl('login');
-						}
+					if(!response.ok){
 						if(usingLoading){
 							this.toggleGlobalLoading(false);
 						}
-						if(popMessage){
-							this.popMessage(result.message, result.success?'success':'error');
-						}
-						resolve(result);
-					});
+						this.popMessage(response.statusText, 'error');
+						resolve(response.statusText);
+					}else{
+						response.text().then((responseText) => {
+							const result = JSON.parse(responseText);
+							if(result.status_code == 401){
+								this.removeStorage('authData');
+								this.goToUrl('login')
+							}
+							if(usingLoading){
+								this.toggleGlobalLoading(false);
+							}
+
+							if(result.status_code == 200){
+								if(popMessage){
+									this.popMessage(result.message, result.success?'success':'error');
+								}
+							}else{
+								this.popMessage(result.message, result.success?'success':'error');
+							}
+							resolve(result);
+						});
+					}	
 				}, (error) => {
 					if(usingLoading){
 						this.toggleGlobalLoading(false);

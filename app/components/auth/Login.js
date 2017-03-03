@@ -26,7 +26,9 @@ class Login extends React.Component {
 			}
 			return Tools.apiCall(apiUrls.authenticate, params).then((result) => {
 				if(result.success){
+					//Get token and set localStorage
 					Tools.setStorage('authData', result.data);
+					//Reset Form
 					dispatch(reset('FormLogin'));
 					Tools.goToUrl();
 				}else{
@@ -35,7 +37,7 @@ class Login extends React.Component {
 			});
 
 		}catch(error){
-			console.error(error)
+			console.error(error);
 		}
 	}
 

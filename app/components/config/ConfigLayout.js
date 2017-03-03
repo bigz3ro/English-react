@@ -5,7 +5,7 @@ import WaitingMessage from 'utils/components/WaitingMessage';
 import CustomModal from 'utils/components/CustomModal';
 import ConfigMainTable from './table/ConfigMainTable';
 import ConfigMainForm from './forms/ConfigMainForm';
-
+import NavWrapper from 'utils/components/NavWrapper';
 
 //ConfigLayout chua template Main Content of Config va Modal de add-edit-delete
 class ConfigLayout extends React.Component {
@@ -65,9 +65,9 @@ class ConfigLayout extends React.Component {
 
 	render(){
 		return (
-			<div>
+			<NavWrapper>
 				{this._renderContent()}
-			</div>
+			</NavWrapper>
 		);
 	}
 }

@@ -67,4 +67,4 @@ export const labels = {
 */
 
 export const apiUrls = Tools.getApiUrls(MAIN_CONTROLLER, rawApiUrls);
-console.log(apiUrls);
+// console.log(apiUrls);
