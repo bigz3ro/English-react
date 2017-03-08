@@ -25,6 +25,7 @@ import Tools from 'utils/helpers/Tools';
 
 //Import Component
 import App from 'components/App';
+import PasswordConfirm from 'components/auth/PasswordConfirm';
 import Config from 'components/config/Config';
 import Profile from 'components/auth/Profile';
 import Login from 'components/auth/Login';
@@ -70,6 +71,7 @@ const rootElementAdmin = (
 				<Route path="config" component={Config} params={{login: true}}/>
 				<Route path="admin" component={Admin} params={{login: false}}/>
 				<Route path="profile" component={Profile} params={{login: true}}/>
+				<Route path="reset_password_confirm/:type/:token" component={PasswordConfirm} params={{login:false}} />
 			</Route>
 			<Route path="*" component={NotFound} params={{login: false}}/>
 		</Router>

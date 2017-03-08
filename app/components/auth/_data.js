@@ -19,6 +19,40 @@ export const labels = {
             rules: {
                 required: true
             }
+        }, re_password:{
+            title: "Retype password",
+            type: 'string',
+            heading: false,
+            init: null,
+            rules:{
+                required: true
+            }
+        }
+    }, resetPassword: {
+        email: {
+            title: 'Your email',
+            type: 'string',
+            heading: false,
+            init: null,
+            rules: {
+                required: true
+            }
+        }, password: {
+            title: 'Your password',
+            type: 'string',
+            heading: false,
+            init: null,
+            rules: {
+                required: true
+            }
+        }, re_password:{
+            title: "Retype password",
+            type: 'string',
+            heading: false,
+            init: null,
+            rules:{
+                required: true
+            }
         }
     }
 };
@@ -32,6 +66,7 @@ const rawApiUrls = {
     profile: 'GET',
     updateProfile: 'POST',
     resetPassword: 'POST',
+    resetPasswordConfirm: 'GET',
     changePassword: 'POST',
     changePasswordConfirm: 'GET'
 };
@@ -44,3 +79,4 @@ const rawApiUrls = {
 }
 */
 export const apiUrls = Tools.getApiUrls(MAIN_CONTROLLER, rawApiUrls);
+// console.log(apiUrls);

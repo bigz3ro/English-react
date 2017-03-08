@@ -20,7 +20,6 @@ import {
 	FIELD_TYPE
 } from 'app/constants';
 
-let fingerprint = null;
 
 export default class Tools {
 	static checkDevMode(){
@@ -51,18 +50,10 @@ export default class Tools {
 		return new Promise(resolve => setTimeout(resolve, ms))
 	}
 
-	static toUrl(location='', params=[]){
-		if(!params.length){
-			return URL_PREFIX + location;
-		}
-		return URL_PREFIX + location + '/' + params.join('/');
-	}
-
-	static goToUrl(location='', params=[]){
-		try{
-			store.dispatch(push(this.toUrl(location, params)));
-		}catch(error){
-			console.error(error);
+	static redirect(location=''){
+		if(location){
+			let path = DOMAIN + URL_PREFIX + location;
+			store.dispatch(push('login'));
 		}
 	}
 
@@ -202,32 +193,40 @@ export default class Tools {
 		return result;
 	}
 
-	static getFingerprintFromLib(){
+	// static async getFingerPrint() {
+	// 	let result =  await new Promise( (resolve, reject) => {
+	// 		new Fingerprint2().get( (fingerprint) =>{
+	// 			resolve(fingerprint);
+	// 		});
+	// 	});
+	// 	return result;
+	// }
+
+	// static checkFingerprint(inner, ...args){
+	// 	return new Promise((resolve, reject) => {
+	// 		if(!fingerprint){
+	// 			this.getFingerprintFromLib().then((newFingerprint) => {
+	// 				return inner(resolve, ...Array.prototype.slice.call(arguments).slice(1));
+	// 			});
+	// 		}else{
+	// 			return inner(resolve, ...Array.prototype.slice.call(arguments).slice(1));
+	// 		}
+	// 	});
+	// }
+
+
+	static getFingerprint(){
 		return new Promise(function(resolve, reject){
 			new Fingerprint2().get((newFingerprint) => {
-				fingerprint = newFingerprint;
 				resolve(newFingerprint);
 			});
 		});
 	}
 
-	static checkFingerprint(inner, ...args){
-		return new Promise((resolve, reject) => {
-			if(!fingerprint){
-				this.getFingerprintFromLib().then((newFingerprint) => {
-					return inner(resolve, ...Array.prototype.slice.call(arguments).slice(1));
-				});
-			}else{
-				return inner(resolve, ...Array.prototype.slice.call(arguments).slice(1));
-			}
-		});
-	}
-
-
+	
 	//Xu ly du lieu gui di theo request theo FormData hay khong
 	static paramsProcessing(params){
 		try{
-
 			let requireFormData = false;
 			forEach(params, (value, key) => {
 				if(key !== 'id'){
@@ -272,80 +271,67 @@ export default class Tools {
 		}
 	}
 
-	static apiCall(apiUrl, params={}, popMessage=true, usingLoading=true){
+	static async apiCall(apiUrl, params={}, popMessage=true, usingLoading=true){
 		try{
 			if(usingLoading){
 				this.toggleGlobalLoading();
 			}
-			return this.checkFingerprint((resolve, ...args) => {
-				// Fetch here
-				let url = apiUrl.url;
-				let requestConfig = {
-					method: apiUrl.method,
-					headers: {
-						"Content-Type": "application/json",
-                		"Authorization": "Bearer " + this.getToken(),
-						"fingerprint": fingerprint
-					},
-					credentials: "same-origin"
-				};
-				if(apiUrl.method === 'POST'){
-					// Have payload
-					params = this.paramsProcessing(params);
-					//Cau hinh du lieu kem theo request
-					requestConfig.body = params.data; 
-					//Neu ma co kem theo kieu du lieu gui di thi xoa di headers ben tren
-					if(!params.contentType){
-						delete requestConfig.headers['Content-Type'];
+			// Fetch here
+			let url = apiUrl.url;
+			let requestConfig = {
+				method: apiUrl.method,
+				headers: {
+					"Content-Type": "application/json",
+            		"Authorization": "Bearer " + this.getToken(),
+					"fingerprint": await this.getFingerprint()
+				},
+				credentials: "same-origin"
+			};
+			if(apiUrl.method === 'POST'){
+				// Have payload
+				params = this.paramsProcessing(params);
+				requestConfig.body = params.data;
+				if(!params.contentType){
+					delete requestConfig.headers['Content-Type'];
+				}
+			}else{
+				// No payload but url encode
+				if(url.indexOf('?') === -1){
+					url += '?' + this.urlDataEncode(params);
+				}
+			}
+
+			return fetch(url, requestConfig).then((response) => response.json()).then((result) => {
+				if(result.status_code === 401){
+					this.removeStorage('authData');
+					this.goToUrl('login');
+				}
+				if(usingLoading){
+					this.toggleGlobalLoading(false);
+				}
+
+				if(result.status_code === 200){
+					if(popMessage){
+						this.popMessage(result.message, result.success?'success':'error');
 					}
 				}else{
-					// No payload but url encode
-					if(url.indexOf('?') === -1){
-						url += '?' + this.urlDataEncode(params);
-					}
+					this.popMessage(result.message, result.success?'success':'error');
 				}
-				fetch(url, requestConfig).then((response) => {
-					if(!response.ok){
-						if(usingLoading){
-							this.toggleGlobalLoading(false);
-						}
-						this.popMessage(response.statusText, 'error');
-						resolve(response.statusText);
-					}else{
-						response.text().then((responseText) => {
-							const result = JSON.parse(responseText);
-							if(result.status_code == 401){
-								this.removeStorage('authData');
-								this.goToUrl('login')
-							}
-							if(usingLoading){
-								this.toggleGlobalLoading(false);
-							}
-
-							if(result.status_code == 200){
-								if(popMessage){
-									this.popMessage(result.message, result.success?'success':'error');
-								}
-							}else{
-								this.popMessage(result.message, result.success?'success':'error');
-							}
-							resolve(result);
-						});
-					}	
-				}, (error) => {
-					if(usingLoading){
-						this.toggleGlobalLoading(false);
-					}
-					this.popMessage(error, 'error');
-					resolve(error);
-				});
-			}, arguments);
+				return result;
+			}).catch((error) => {
+				if(usingLoading){
+					this.toggleGlobalLoading(false);
+				}
+				this.popMessage(error, 'error');
+				return error;
+			});
 		}catch(error){
 			if(usingLoading){
 				this.toggleGlobalLoading(false);
 			}
 			this.popMessage(error, 'error');
 			console.error(error);
+			return error;
 		}
 	}
 

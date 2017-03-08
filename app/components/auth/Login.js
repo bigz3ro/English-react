@@ -14,7 +14,12 @@ class Login extends React.Component {
 
 	constructor(props){
 		super(props)
+		this.state = {
+			resetPassowrdModal: false
+		}
 		this.loginHandle = this.loginHandle.bind(this);
+		this.handleToggle = this.handleToggle.bind(this);	
+		this.handleResetPassword = this.handleResetPassword.bind(this);	
 	}
 
 	loginHandle(eventData, dispatch) {
@@ -41,12 +46,49 @@ class Login extends React.Component {
 		}
 	}
 
+	handleResetPassword(eventData, dispatch){
+		//Recieve email, passsword
+		try{
+			const params = {
+				...eventData,
+				password: md5(eventData.password),
+				re_password: md5(eventData.re_password)
+			}
+			//Call api here
+			if(eventData.password !== eventData.re_password){
+				return Tools.sleep().then(() => {
+					throw new SubmissionError(Tools.errorMessageProcessing('Passwords not matched!'));
+				});
+			}
+			return Tools.apiCall(apiUrls.resetPassword, params).then( (result) => {
+				if(result.success){
+					Tools.setStorage('authData', result.data);
+					dispatch(reset('FormResetPassword'));
+					Tools.redirect('login');
+				}else{
+					throw new SubmissionError(Tools.errorMessageProcessing(result.message));
+				}
+			});
+
+		}catch(error){
+			console.error(error);
+		}
+	}
+
+	handleToggle(){
+		this.setState({
+			resetPassowrdModal: !this.state.resetPassowrdModal
+		});
+	}
 
 	render(){
 		return (
 			<LoginLayout 
 				labels={labels}
 				checkSubmit={this.loginHandle}
+				handleResetPassword={this.handleResetPassword}
+				handleToggle={this.handleToggle}
+				resetPasswordModal={this.state.resetPassowrdModal}
 			/>
 		);
 	}
